@@ -11,6 +11,7 @@ class WordArray implements WordSource {
     this.words = words;
   }
 
+  @Override
   public Word[] getWords() {
     return words;
   }

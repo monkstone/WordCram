@@ -10,7 +10,7 @@ import cue.lang.stop.StopWords;
 class WordCounter {
 
     private StopWords cueStopWords;
-    private Set<String> extraStopWords = new HashSet<String>();
+    private Set<String> extraStopWords = new HashSet<>();
     private boolean excludeNumbers;
 
     public WordCounter() {
@@ -22,7 +22,7 @@ class WordCounter {
 
     public WordCounter withExtraStopWords(String extraStopWordsString) {
         String[] stopWordsArray = extraStopWordsString.toLowerCase().split(" ");
-        extraStopWords = new HashSet<String>(Arrays.asList(stopWordsArray));
+        extraStopWords = new HashSet<>(Arrays.asList(stopWordsArray));
         return this;
     }
 
@@ -56,7 +56,7 @@ class WordCounter {
 	}
 
     private Word[] countWords(String text) {
-        Counter<String> counter = new Counter<String>();
+        Counter<String> counter = new Counter<>();
 
         for (String word : new WordIterator(text)) {
             if (shouldCountWord(word)) {
@@ -64,11 +64,11 @@ class WordCounter {
             }
         }
 
-        List<Word> words = new ArrayList<Word>();
+        List<Word> words = new ArrayList<>();
 
-        for (Entry<String, Integer> entry : counter.entrySet()) {
+        counter.entrySet().forEach((entry) -> {
             words.add(new Word(entry.getKey(), (int)entry.getValue()));
-        }
+        });
 
         return words.toArray(new Word[0]);
     }

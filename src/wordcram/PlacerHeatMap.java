@@ -11,13 +11,13 @@ import processing.core.PVector;
 
 public class PlacerHeatMap {
 
-  private Word[] words;
-  private WordFonter fonter;
-  private WordSizer sizer;
-  private WordAngler angler;
-  private WordPlacer placer;
-  private WordNudger nudger;
-  private WordShaper shaper;
+  private final Word[] words;
+  private final WordFonter fonter;
+  private final WordSizer sizer;
+  private final WordAngler angler;
+  private final WordPlacer placer;
+  private final WordNudger nudger;
+  private final WordShaper shaper;
 
   PlacerHeatMap(Word[] words, WordFonter fonter, WordSizer sizer, WordAngler angler, WordPlacer placer, WordNudger nudger, WordShaper shaper) {
 
@@ -31,7 +31,7 @@ public class PlacerHeatMap {
   }
 
   class RectStack {
-    ArrayList<Rectangle2D> rects = new ArrayList<Rectangle2D>();
+    ArrayList<Rectangle2D> rects = new ArrayList<>();
 
     void add(int x, int y, int w, int h) {
       rects.add(new Rectangle2D.Float(x, y, w, h));
@@ -40,11 +40,7 @@ public class PlacerHeatMap {
     int howManyIntersect(int x, int y, int w, int h) {
       int sum = 0;
 
-      for (Rectangle2D r : rects) {
-        if (r.intersects(x, y, w, h)) {
-          sum++;
-        }
-      }
+      sum = rects.stream().filter((r) -> (r.intersects(x, y, w, h))).map((_item) -> 1).reduce(sum, Integer::sum);
 
       return sum;
     }
@@ -52,7 +48,7 @@ public class PlacerHeatMap {
 
   class RectGrid {
     RectStack stack;
-    HashMap<Rectangle2D, Integer> levels = new HashMap<Rectangle2D, Integer>();
+    HashMap<Rectangle2D, Integer> levels = new HashMap<>();
 
     RectGrid(RectStack stack) {
       this.stack = stack;
@@ -92,19 +88,19 @@ public class PlacerHeatMap {
       sketch.colorMode(PApplet.HSB);
 
       int max = maxLevel();
-      for (Rectangle2D rect : levels.keySet()) {
-        Integer level = levels.get(rect);
-
-        int c = sketch.color(0);
-        if (level > 0) {
-          float scaled = (float)level / 8; 
-          int hue = (int)PApplet.map(scaled, 0, 1, 85, 0);  // 85 = pure green
-          c = sketch.color(hue, 255, 255);
-        }
-
-        sketch.fill(c);
-        sketch.rect((float)rect.getX(), (float)rect.getY(), (float)rect.getWidth(), (float)rect.getHeight());
-      }
+      levels.keySet().forEach((rect) -> {
+          Integer level = levels.get(rect);
+          
+          int c = sketch.color(0);
+          if (level > 0) {
+              float scaled = (float)level / 8;
+              int hue = (int)PApplet.map(scaled, 0, 1, 85, 0);  // 85 = pure green
+              c = sketch.color(hue, 255, 255);
+          }
+          
+          sketch.fill(c);
+          sketch.rect((float)rect.getX(), (float)rect.getY(), (float)rect.getWidth(), (float)rect.getHeight());
+        });
     }
   }
 

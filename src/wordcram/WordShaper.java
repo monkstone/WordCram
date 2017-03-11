@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D; // awt: move shape
 import processing.core.PFont;
 
 public class WordShaper {
-    private FontRenderContext frc = new FontRenderContext(null, true, true);
+    private final FontRenderContext frc = new FontRenderContext(null, true, true);
 
 
     private boolean rightToLeft;

@@ -8,9 +8,9 @@ import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 
 class SvgWordRenderer implements WordRenderer {
-	private PrintWriter out;
-	private int width;
-	private int height;
+	private final PrintWriter out;
+	private final int width;
+	private final int height;
 
 	SvgWordRenderer(String filename, int width, int height) throws FileNotFoundException {
 		this.out = new PrintWriter(filename);
@@ -23,14 +23,17 @@ class SvgWordRenderer implements WordRenderer {
 		pl("<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"" + width + "\" height=\"" + height + "\" fill-rule=\"evenodd\">");   // or nonzero
 	}
 
+        @Override
 	public int getWidth() {
 		return this.width;
 	}
 
+        @Override
 	public int getHeight() {
 		return this.height;
 	}
 
+        @Override
 	public void drawWord(EngineWord word, Color color) {
 		// TODO add word metadata
 		pl("<g style=\"fill:" + getColor(color) + "; stroke-width:0px\">");
@@ -38,6 +41,7 @@ class SvgWordRenderer implements WordRenderer {
 		pl("</g>");
 	}
 
+        @Override
 	public void finish() {
 		pl("</svg>");
 		out.flush();

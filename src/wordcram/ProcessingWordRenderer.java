@@ -15,14 +15,17 @@ class ProcessingWordRenderer implements WordRenderer {
 		this.destination = destination;
 	}
 
+        @Override
 	public int getWidth() {
 		return destination.width;
 	}
 
+        @Override
 	public int getHeight() {
 		return destination.height;
 	}
 
+        @Override
 	public void drawWord(EngineWord word, Color color) {
         GeneralPath path2d = new GeneralPath(word.getShape());
 
@@ -34,5 +37,6 @@ class ProcessingWordRenderer implements WordRenderer {
         g2.fill(path2d);
 	}
 
+        @Override
 	public void finish() {}
 }

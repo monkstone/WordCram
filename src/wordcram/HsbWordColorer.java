@@ -15,6 +15,7 @@ abstract class HsbWordColorer implements WordColorer {
         this.range = range;
     }
 
+    @Override
     public int colorFor(Word word) {
         host.pushStyle();
         host.colorMode(PConstants.HSB, range);

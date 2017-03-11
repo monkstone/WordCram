@@ -141,7 +141,7 @@ public class WordCram {
      */
     private Word[] words;
     private WordSource wordSource;
-    private ArrayList<TextSource> textSources = new ArrayList<TextSource>();
+    private final ArrayList<TextSource> textSources = new ArrayList<>();
     private String extraStopWords = "";
     private boolean excludeNumbers = true;
     private enum TextCase { Lower, Upper, Keep };
@@ -149,7 +149,7 @@ public class WordCram {
 
     private WordCramEngine wordCramEngine;
 
-    private PApplet parent;
+    private final PApplet parent;
 
     private WordFonter fonter;
     private WordSizer sizer;
@@ -159,7 +159,7 @@ public class WordCram {
     private WordNudger nudger;
 
     private WordRenderer renderer;
-    private RenderOptions renderOptions = new RenderOptions();
+    private final RenderOptions renderOptions = new RenderOptions();
     private Observer observer;
 
     /**
@@ -403,6 +403,7 @@ public class WordCram {
      * stop-words will have no effect, etc. These words are
      * supposed to be ready to go.
      *
+     * @param words
      * @return The WordCram, for further setup or drawing.
      */
     public WordCram fromWords(Word[] words) {
@@ -423,6 +424,7 @@ public class WordCram {
      * <a href="http://processing.org/reference/createFont_.html" target="blank">createFont</a>,
      * and will render words in one of those PFonts.
      *
+     * @param fontNames
      * @return The WordCram, for further setup or drawing.
      */
     public WordCram withFonts(String... fontNames) {
@@ -451,6 +453,7 @@ public class WordCram {
      * This WordCram will render words in one of the given
      * <a href="http://processing.org/reference/PFont.html" target="blank">PFonts</a>.
      *
+     * @param fonts
      * @return The WordCram, for further setup or drawing.
      */
     public WordCram withFonts(PFont... fonts) {
@@ -815,11 +818,13 @@ public class WordCram {
     }
 
     private String joinTextSources() {
-        StringBuffer buffer = new StringBuffer();
-        for (TextSource textSource : textSources) {
+        StringBuilder buffer = new StringBuilder();
+        textSources.stream().map((textSource) -> {
             buffer.append(textSource.getText());
+            return textSource;
+        }).forEachOrdered((_item) -> {
             buffer.append("\n");
-        }
+        });
         return buffer.toString();
     }
 
@@ -867,6 +872,7 @@ public class WordCram {
      * if you want to inspect exactly how the words were weighted,
      * or see how they were colored, fonted, sized, angled, or
      * placed, or why they were skipped.
+     * @return 
      */
     public Word[] getWords() {
         Word[] wordsCopy = new Word[words.length];

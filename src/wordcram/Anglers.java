@@ -21,11 +21,7 @@ public class Anglers {
      */
     public static WordAngler random() {
         final Random r = new Random();
-        return new WordAngler() {
-            public float angleFor(Word w) {
-                return r.nextFloat() * PConstants.TWO_PI;
-            }
-        };
+        return (Word w) -> r.nextFloat() * PConstants.TWO_PI;
     }
 
     /**
@@ -39,11 +35,7 @@ public class Anglers {
     public static WordAngler randomBetween(final float min, final float max) {
         final Random r = new Random();
         final float difference = max - min;
-        return new WordAngler() {
-            public float angleFor(Word w) {
-                return (r.nextFloat() * difference) + min;
-            }
-        };
+        return (Word w) -> (r.nextFloat() * difference) + min;
     }
 
     /**
@@ -66,11 +58,7 @@ public class Anglers {
      * @return a WordAngler that always returns the given angle parameter.
      */
     public static WordAngler alwaysUse(final float angle) {
-        return new WordAngler() {
-            public float angleFor(Word w) {
-                return angle;
-            }
-        };
+        return (Word w) -> angle;
     }
 
     /**
@@ -91,11 +79,7 @@ public class Anglers {
      */
     public static WordAngler pickFrom(final float... angles) {
         final Random r = new Random();
-        return new WordAngler() {
-            public float angleFor(Word w) {
-                return angles[r.nextInt(angles.length)];
-            }
-        };
+        return (Word w) -> angles[r.nextInt(angles.length)];
     }
 
     /**

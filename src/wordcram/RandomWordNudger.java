@@ -14,7 +14,7 @@ import processing.core.PVector;
  */
 public class RandomWordNudger implements WordNudger {
 
-    private Random r = new Random();
+    private final Random r = new Random();
     private float stdDev;
 
     /**
@@ -26,11 +26,13 @@ public class RandomWordNudger implements WordNudger {
 
     /**
      * Create a RandomWordNudger with your own standard deviation.
+     * @param stdDev
      */
     public RandomWordNudger(float stdDev) {
         this.stdDev = stdDev;
     }
 
+    @Override
     public PVector nudgeFor(Word w, int attempt) {
         return new PVector(next(attempt), next(attempt));
     }

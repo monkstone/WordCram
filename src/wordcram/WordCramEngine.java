@@ -11,22 +11,22 @@ import processing.core.PVector;
 
 class WordCramEngine {
 
-    private WordRenderer renderer;
+    private final WordRenderer renderer;
 
-    private WordFonter fonter;
-    private WordSizer sizer;
-    private WordColorer colorer;
-    private WordAngler angler;
-    private WordPlacer placer;
-    private WordNudger nudger;
+    private final WordFonter fonter;
+    private final WordSizer sizer;
+    private final WordColorer colorer;
+    private final WordAngler angler;
+    private final WordPlacer placer;
+    private final WordNudger nudger;
 
-    private ArrayList<EngineWord> eWords;
-    private ListIterator<EngineWord> eWordIter;
-    private ArrayList<EngineWord> drawnWords = new ArrayList<EngineWord>();
-    private ArrayList<Word> skippedWords = new ArrayList<Word>();
+    private final ArrayList<EngineWord> eWords;
+    private final ListIterator<EngineWord> eWordIter;
+    private final ArrayList<EngineWord> drawnWords = new ArrayList<>();
+    private final ArrayList<Word> skippedWords = new ArrayList<>();
 
-    private RenderOptions renderOptions;
-    private Observer observer;
+    private final RenderOptions renderOptions;
+    private final Observer observer;
 
     // TODO Damn, really need to break down that list of arguments.
     WordCramEngine(WordRenderer renderer, Word[] words, WordFonter fonter, WordSizer sizer, WordColorer colorer, WordAngler angler, WordPlacer placer, WordNudger nudger, WordShaper shaper, BBTreeBuilder bbTreeBuilder, RenderOptions renderOptions, Observer observer) {
@@ -46,7 +46,7 @@ class WordCramEngine {
     }
 
     private ArrayList<EngineWord> wordsIntoEngineWords(Word[] words, WordShaper wordShaper, BBTreeBuilder bbTreeBuilder) {
-        ArrayList<EngineWord> engineWords = new ArrayList<EngineWord>();
+        ArrayList<EngineWord> engineWords = new ArrayList<>();
 
         int maxNumberOfWords = words.length;
         if (renderOptions.maxNumberOfWordsToDraw >= 0) {

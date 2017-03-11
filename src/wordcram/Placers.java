@@ -10,29 +10,25 @@ public class Placers {
     public static WordPlacer horizLine() {
         final Random r = new Random();
 
-        return new WordPlacer() {
-            public PVector place(Word word, int wordIndex, int wordsCount,
-                    int wordImageWidth, int wordImageHeight, int fieldWidth, int fieldHeight) {
-                int centerHorizLine = (int) ((fieldHeight - wordImageHeight) * 0.5);
-                int centerVertLine = (int) ((fieldWidth - wordImageWidth) * 0.5);
-
-                float xOff = (float) r.nextGaussian() * ((fieldWidth - wordImageWidth) * 0.2f);
-                float yOff = (float) r.nextGaussian() * 50;
-
-                return new PVector(centerVertLine + xOff, centerHorizLine + yOff);
-/*
-                int adjFieldWidth = fieldWidth - wordImageWidth;
-                int adjFieldHeight = fieldHeight - wordImageHeight;
-
-                float xOff = (float) r.nextGaussian();// * 0.2f;
-                float yOff = (float) r.nextGaussian();// * 0.5f;
-                yOff = (float)Math.pow(yOff, 3) * 1.5f;
-
-                return new PVector(PApplet.map(xOff, -2, 2, 0, adjFieldWidth),
-                                    PApplet.map(yOff, -2, 2, 0, adjFieldHeight));
-*/
-            }
-        };
+        return (Word word, int wordIndex, int wordsCount, int wordImageWidth, int wordImageHeight, int fieldWidth, int fieldHeight) -> {
+            int centerHorizLine = (int) ((fieldHeight - wordImageHeight) * 0.5);
+            int centerVertLine = (int) ((fieldWidth - wordImageWidth) * 0.5);
+            
+            float xOff = (float) r.nextGaussian() * ((fieldWidth - wordImageWidth) * 0.2f);
+            float yOff = (float) r.nextGaussian() * 50;
+            
+            return new PVector(centerVertLine + xOff, centerHorizLine + yOff);
+            /*
+            int adjFieldWidth = fieldWidth - wordImageWidth;
+            int adjFieldHeight = fieldHeight - wordImageHeight;
+            
+            float xOff = (float) r.nextGaussian();// * 0.2f;
+            float yOff = (float) r.nextGaussian();// * 0.5f;
+            yOff = (float)Math.pow(yOff, 3) * 1.5f;
+            
+            return new PVector(PApplet.map(xOff, -2, 2, 0, adjFieldWidth),
+            PApplet.map(yOff, -2, 2, 0, adjFieldHeight));
+        */      };
     }
 
     public static WordPlacer centerClump() {
@@ -41,6 +37,7 @@ public class Placers {
 
         return new WordPlacer() {
 
+            @Override
             public PVector place(Word word, int wordIndex, int wordsCount,
                     int wordImageWidth, int wordImageHeight, int fieldWidth, int fieldHeight) {
                 return new PVector(getOneUnder(fieldWidth - wordImageWidth),
@@ -56,14 +53,10 @@ public class Placers {
 
     public static WordPlacer horizBandAnchoredLeft() {
         final Random r = new Random();
-        return new WordPlacer() {
-            public PVector place(Word word, int wordIndex, int wordsCount,
-                    int wordImageWidth, int wordImageHeight, int fieldWidth,
-                    int fieldHeight) {
-                float x = (1 - word.weight) * fieldWidth * r.nextFloat(); // big=left, small=right
-                float y = ((float) fieldHeight) * 0.5f;
-                return new PVector(x, y);
-            }
+        return (Word word, int wordIndex, int wordsCount, int wordImageWidth, int wordImageHeight, int fieldWidth, int fieldHeight) -> {
+            float x = (1 - word.weight) * fieldWidth * r.nextFloat(); // big=left, small=right
+            float y = ((float) fieldHeight) * 0.5f;
+            return new PVector(x, y);
         };
     }
 

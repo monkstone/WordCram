@@ -6,10 +6,10 @@ import processing.core.PGraphics;
 
 public class BBTree {
 
-    private int left;
-    private int top;
-    private int right;
-    private int bottom;
+    private final int left;
+    private final int top;
+    private final int right;
+    private final int bottom;
     private BBTree[] kids;
 
     private BBTree parent;
@@ -26,7 +26,7 @@ public class BBTree {
     }
 
     void addKids(BBTree... _kids) {
-        ArrayList<BBTree> kidList = new ArrayList<BBTree>();
+        ArrayList<BBTree> kidList = new ArrayList<>();
         for (BBTree kid : _kids) {
             if (kid != null) {
                 kidList.add(kid);
@@ -101,8 +101,8 @@ public class BBTree {
     void swell(int extra) {
         swelling += extra;
         if (!isLeaf()) {
-            for (int i = 0; i < kids.length; i++) {
-                kids[i].swell(extra);
+            for (BBTree kid : kids) {
+                kid.swell(extra);
             }
         }
     }
@@ -121,8 +121,8 @@ public class BBTree {
         if (this.isLeaf()) {
             drawBounds(g, getPoints());
         } else {
-            for (int i = 0; i < kids.length; i++) {
-                kids[i].drawLeaves(g);
+            for (BBTree kid : kids) {
+                kid.drawLeaves(g);
             }
         }
     }

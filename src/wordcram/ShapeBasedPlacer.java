@@ -25,6 +25,7 @@ public class ShapeBasedPlacer implements WordPlacer, WordNudger {
 		this.maxY = (float) areaBounds.getMaxY();
 	}
 
+        @Override
 	public PVector place(Word w, int rank, int count, int ww, int wh, int fw,
 			int fh) {
 
@@ -39,6 +40,7 @@ public class ShapeBasedPlacer implements WordPlacer, WordNudger {
 		return new PVector(-1, -1);
 	}
 
+        @Override
 	public PVector nudgeFor(Word word, int attempt) {
 		PVector target = word.getTargetPlace();
 		float wx = target.x;

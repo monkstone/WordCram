@@ -11,6 +11,7 @@ public class Colorers {
         final float[] hues = new float[] { host.random(256), host.random(256) };
 
         return new HsbWordColorer(host) {
+            @Override
             public int getColorFor(Word w) {
 
                 float hue = hues[(int)host.random(hues.length)];
@@ -27,6 +28,7 @@ public class Colorers {
         final float[] hues = new float[] { host.random(256), host.random(256) };
 
         return new HsbWordColorer(host) {
+            @Override
             public int getColorFor(Word w) {
 
                 float hue = hues[(int)host.random(hues.length)];
@@ -40,19 +42,11 @@ public class Colorers {
 
     public static WordColorer pickFrom(final int... colors) {
         final Random r = new Random();
-        return new WordColorer() {
-            public int colorFor(Word w) {
-                return colors[r.nextInt(colors.length)];
-            }
-        };
+        return (Word w) -> colors[r.nextInt(colors.length)];
     }
 
     // TODO add an overload that takes 1 int (greyscale), 2 ints (greyscale/alpha), etc
     public static WordColorer alwaysUse(final int color) {
-        return new WordColorer() {
-            public int colorFor(Word w) {
-                return color;
-            }
-        };
+        return (Word w) -> color;
     }
 }

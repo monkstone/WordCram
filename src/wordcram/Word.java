@@ -74,7 +74,7 @@ public class Word implements Comparable<Word> {
     private PVector renderedPlace;
     private WordSkipReason skippedBecause;
 
-    private HashMap<String,Object> properties = new HashMap<String,Object>();
+    private final HashMap<String,Object> properties = new HashMap<>();
 
     public Word(String word, float weight) {
         this.word = word;
@@ -83,6 +83,7 @@ public class Word implements Comparable<Word> {
 
     /**
      * Set the size this Word should be rendered at - WordCram won't even call the WordSizer.
+     * @param size
      * @return the Word, for more configuration
      */
     public Word setSize(float size) {
@@ -92,6 +93,7 @@ public class Word implements Comparable<Word> {
 
     /**
      * Set the angle this Word should be rendered at - WordCram won't even call the WordAngler.
+     * @param angle
      * @return the Word, for more configuration
      */
     public Word setAngle(float angle) {
@@ -101,6 +103,7 @@ public class Word implements Comparable<Word> {
 
     /**
      * Set the font this Word should be rendered in - WordCram won't call the WordFonter.
+     * @param font
      * @return the Word, for more configuration
      */
     public Word setFont(PFont font) {  // TODO provide a string overload? Will need the PApplet...
@@ -110,6 +113,7 @@ public class Word implements Comparable<Word> {
 
     /**
      * Set the color this Word should be rendered in - WordCram won't call the WordColorer.
+     * @param color
      * @return the Word, for more configuration
      */
     public Word setColor(int color) {
@@ -119,6 +123,7 @@ public class Word implements Comparable<Word> {
 
     /**
      * Set the place this Word should be rendered at - WordCram won't call the WordPlacer.
+     * @param place
      * @return the Word, for more configuration
      */
     public Word setPlace(PVector place) {
@@ -128,6 +133,8 @@ public class Word implements Comparable<Word> {
 
     /**
      * Set the place this Word should be rendered at - WordCram won't call the WordPlacer.
+     * @param x
+     * @param y
      * @return the Word, for more configuration
      */
     public Word setPlace(float x, float y) {
@@ -205,6 +212,7 @@ public class Word implements Comparable<Word> {
     /**
      * Get the place the Word was supposed to be rendered at: either the value passed to setPlace(),
      * or the value returned from the WordPlacer.
+     * @return 
      */
     public PVector getTargetPlace() {
         return targetPlace;
@@ -300,7 +308,9 @@ public class Word implements Comparable<Word> {
 
     /**
      * Compares Words based on weight only. Words with equal weight are arbitrarily sorted.
+     * @param w
      */
+    @Override
     public int compareTo(Word w) {
         if (w.weight < weight) {
             return -1;

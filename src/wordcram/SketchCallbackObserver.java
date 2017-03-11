@@ -1,5 +1,6 @@
 package wordcram;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import processing.core.PApplet;
@@ -10,7 +11,7 @@ import processing.core.PApplet;
 class SketchCallbackObserver implements Observer {
 	PApplet parent;
 
-	HashMap<String, Method> sketchMethods = new HashMap<String, Method>();
+	HashMap<String, Method> sketchMethods = new HashMap<>();
 
 	SketchCallbackObserver(PApplet parent) {
 
@@ -23,18 +24,23 @@ class SketchCallbackObserver implements Observer {
 		registerSketchMethod("endDraw");
 	}
 
+        @Override
 	public void wordsCounted(Word[] words) {
 		invoke("wordsCounted", new Object[] { words });
 	}
+        @Override
 	public void beginDraw() {
 		invoke("beginDraw", new Object[0]);
 	}
+        @Override
 	public void wordDrawn(Word word) {
 		invoke("wordDrawn", new Object[] { word });
 	}
+        @Override
 	public void wordSkipped(Word word) {
 		invoke("wordSkipped", new Object[] { word });
 	}
+        @Override
 	public void endDraw() {
 		invoke("endDraw", new Object[0]);
 	}
@@ -44,7 +50,7 @@ class SketchCallbackObserver implements Observer {
 			Method method = parent.getClass().getMethod(name, parameterTypes);
 			sketchMethods.put(name, method);
 	    }
-	    catch (Exception e) {
+	    catch (NoSuchMethodException | SecurityException e) {
 			// The sketch doesn't have this method name. No worries.
 	    }
 	}
@@ -55,9 +61,8 @@ class SketchCallbackObserver implements Observer {
 			try {
 				method.invoke(parent, arguments);
 			}
-			catch (Exception e) {
+			catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				System.err.println("Disabling method " + name + " because of an error.");
-				e.printStackTrace();
 				sketchMethods.remove(name);
 			}
 		}

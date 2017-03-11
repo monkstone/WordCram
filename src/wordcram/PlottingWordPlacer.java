@@ -12,14 +12,15 @@ import processing.core.PVector;
  */
 public class PlottingWordPlacer implements WordPlacer {
 
-    private PApplet parent;
-    private WordPlacer wrappedPlacer;
+    private final PApplet parent;
+    private final WordPlacer wrappedPlacer;
 
     public PlottingWordPlacer(PApplet _parent, WordPlacer _wrappedPlacer) {
         parent = _parent;
         wrappedPlacer = _wrappedPlacer;
     }
 
+    @Override
     public PVector place(Word word, int wordIndex, int wordsCount, int wordImageWidth, int wordImageHeight, int fieldWidth, int fieldHeight) {
         PVector v = wrappedPlacer.place(word, wordIndex, wordsCount, wordImageWidth, wordImageHeight, fieldWidth, fieldHeight);
         parent.pushStyle();

@@ -7,8 +7,9 @@ import processing.core.PVector;
 
 public class UpperLeftWordPlacer implements WordPlacer {
 
-    private Random r = new Random();
+    private final Random r = new Random();
 
+    @Override
     public PVector place(Word word, int wordIndex, int wordsCount, int wordImageWidth, int wordImageHeight, int fieldWidth, int fieldHeight) {
         int x = getOneUnder(fieldWidth - wordImageWidth);
         int y = getOneUnder(fieldHeight - wordImageHeight);

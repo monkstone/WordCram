@@ -25,9 +25,7 @@ class WordSorterAndScaler {
         // was Arrays.copyOf(rawWords, rawWords.length); - removed for Java 1.5 compatibility.
 
         Word[] copy = new Word[rawWords.length];
-        for(int i = 0; i < copy.length; i++) {
-            copy[i] = rawWords[i];
-        }
+        System.arraycopy(rawWords, 0, copy, 0, copy.length);
         return copy;
     }
 }

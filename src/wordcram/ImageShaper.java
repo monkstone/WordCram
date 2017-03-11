@@ -42,7 +42,7 @@ public class ImageShaper {
 
 			int centerX = avg(left, right);
 			int centerY = avg(top, bottom);
-			kids = new ArrayList<RectTree>();
+			kids = new ArrayList<>();
 			kids.add(new RectTree(left, top, centerX, centerY));
 			kids.add(new RectTree(centerX, top, right, centerY));
 			kids.add(new RectTree(left, centerY, centerX, bottom));
@@ -61,9 +61,9 @@ public class ImageShaper {
 				area.add(new Area(new Rectangle(left, top, width, height)));
 			}
 			else if (kids != null) {
-				for (RectTree kid : kids) {
-					area.add(new Area(kid.toShape(img, color)));
-				}
+                            kids.forEach((kid) -> {
+                                area.add(new Area(kid.toShape(img, color)));
+                            });
 			}
 			return area;
 		}

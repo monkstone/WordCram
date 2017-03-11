@@ -10,7 +10,7 @@ class EngineWord {
     int rank;
 
     private Shape shape;
-    private BBTreeBuilder bbTreeBuilder;
+    private final BBTreeBuilder bbTreeBuilder;
     private BBTree bbTree;
 
     private PVector desiredLocation;

@@ -35,6 +35,7 @@ public enum WordSkipReason {
         this.reason = reason;
     }
 
+        @Override
     public String toString() {
         return reason;
     }

@@ -27,11 +27,7 @@ public class Sizers {
      * @return the WordSizer
      */
     public static WordSizer byWeight(final int minSize, final int maxSize) {
-        return new WordSizer() {
-            public float sizeFor(Word word, int wordRank, int wordCount) {
-                return PApplet.lerp(minSize, maxSize, word.weight);
-            }
-        };
+        return (Word word, int wordRank, int wordCount) -> PApplet.lerp(minSize, maxSize, word.weight);
     }
 
     /**
@@ -51,11 +47,7 @@ public class Sizers {
      * @return the WordSizer
      */
     public static WordSizer byRank(final int minSize, final int maxSize) {
-        return new WordSizer() {
-            public float sizeFor(Word word, int wordRank, int wordCount) {
-                return PApplet.map(wordRank, 0, wordCount, maxSize, minSize);
-            }
-        };
+        return (Word word, int wordRank, int wordCount) -> PApplet.map(wordRank, 0, wordCount, maxSize, minSize);
     }
 
     // TODO try exponent scales, rather than linear.

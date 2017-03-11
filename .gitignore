@@ -7,3 +7,5 @@ target
 *.swp
 _site
 sketch.properties
+/WordCram/
+

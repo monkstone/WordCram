@@ -11,14 +11,15 @@ import processing.core.PVector;
  */
 public class PlottingWordNudger implements WordNudger {
 
-    private PApplet parent;
-    private WordNudger wrappedNudger;
+    private final PApplet parent;
+    private final WordNudger wrappedNudger;
 
     public PlottingWordNudger(PApplet _parent, WordNudger _wrappedNudger) {
         parent = _parent;
         wrappedNudger = _wrappedNudger;
     }
 
+    @Override
     public PVector nudgeFor(Word word, int attempt) {
         PVector v = wrappedNudger.nudgeFor(word, attempt);
         parent.pushStyle();

@@ -16,6 +16,7 @@ public class WordBag implements WordSource {
     return this;
   }
 
+  @Override
   public Word[] getWords() {
     Word[] words = new Word[numWords];
     java.util.Random rand = new java.util.Random();
